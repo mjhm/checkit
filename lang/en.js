@@ -52,6 +52,7 @@ module.exports = {
     ipv6: 'The {{label}} must be a valid IPv6 address',
     base64: 'The {{label}} must be a base64 string',
     luhn: 'The {{label}} must be a valid credit card number',
+    passwordHash: 'The {{label}} must be a valid password hash',
     uuid: 'The {{label}} must be a valid uuid',
 
     // If there is no validation provided for an item, use this generic line.

@@ -230,6 +230,50 @@ describe('Checkit', function() {
 
     });
 
+    describe.only('passwordHash', function() {
+
+      it('should pass for desCrypt example', function() {
+        return Checkit({
+          desCrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for bsdiCrypt example', function() {
+        return Checkit({
+          bsdiCrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for bcrypt example', function() {
+        return Checkit({
+          bcrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for md5Crypt example', function() {
+        return Checkit({
+          md5Crypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should fail for clear text name', function() {
+        return Checkit({
+          isString: ['passwordHash']
+        }).run(testBlock).catch(function() {
+          return true;
+        }).then(function(val) { equal(val, true) })
+      });
+
+      it('should fail for generic base64 string', function() {
+        return Checkit({
+          base64: ['passwordHash']
+        }).run(testBlock).catch(function() {
+          return true;
+        }).then(function(val) { equal(val, true) })
+      });
+
+    });
+
     describe('uuid', function() {
 
       it('should pass for uuid v1', function() {
@@ -435,7 +479,7 @@ describe('Checkit', function() {
       var context = { foo: 'my context', bar: 'another field' };
       var res = null;
       return Checkit({})
-      .maybe({}, function(item, context) { 
+      .maybe({}, function(item, context) {
         res = context;
       })
       .run({}, context)

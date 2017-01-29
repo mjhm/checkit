@@ -69,6 +69,11 @@ return {
   isNaN: NaN,
   isNull: null,
 
+  desCrypt: 'JQMuyS6H.AGMo',
+  bsdiCrypt: '_7C/.Bf/4gZk10RYRs4Y',
+  bcrypt: '$2b$12$GhvMmNVjRW29ulnudl.LbuAnUtN/LRfe1JsBm1Xu6LE3059z5Tr8m',
+  md5Crypt: '$1$5pZSV9va$azfrPr6af3Fc7dLblQXVa0',
+
   url1: 'http://google.com',
   url2: 'https://google.com',
 
