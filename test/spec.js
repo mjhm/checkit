@@ -230,7 +230,7 @@ describe('Checkit', function() {
 
     });
 
-    describe.only('passwordHash', function() {
+    describe('passwordHash', function() {
 
       it('should pass for desCrypt example', function() {
         return Checkit({
@@ -256,9 +256,9 @@ describe('Checkit', function() {
         }).run(testBlock)
       });
 
-      it('should fail for clear text name', function() {
+      it('should fail for clear text password', function() {
         return Checkit({
-          isString: ['passwordHash']
+          clearTextPassword: ['passwordHash']
         }).run(testBlock).catch(function() {
           return true;
         }).then(function(val) { equal(val, true) })

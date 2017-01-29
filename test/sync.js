@@ -42,7 +42,7 @@ describe('Checkit - sync', function() {
       it('should fail if the value is outside the range', function() {
         var arr = Checkit({
           integer: ['between:0:10']
-        }).runSync(testBlock)          
+        }).runSync(testBlock)
         assert(arr[0] instanceof Checkit.Error)
       })
 
@@ -209,6 +209,50 @@ describe('Checkit - sync', function() {
 
     });
 
+    describe('passwordHash', function() {
+
+      it('should pass for desCrypt example', function() {
+        return Checkit({
+          desCrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for bsdiCrypt example', function() {
+        return Checkit({
+          bsdiCrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for bcrypt example', function() {
+        return Checkit({
+          bcrypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should pass for md5Crypt example', function() {
+        return Checkit({
+          md5Crypt: ['passwordHash']
+        }).run(testBlock)
+      });
+
+      it('should fail for clear text password', function() {
+        return Checkit({
+          clearTextPassword: ['passwordHash']
+        }).run(testBlock).catch(function() {
+          return true;
+        }).then(function(val) { equal(val, true) })
+      });
+
+      it('should fail for generic base64 string', function() {
+        return Checkit({
+          base64: ['passwordHash']
+        }).run(testBlock).catch(function() {
+          return true;
+        }).then(function(val) { equal(val, true) })
+      });
+
+    });
+
     describe('uuid', function() {
 
       it('should pass for uuid v1', function() {
@@ -319,7 +363,7 @@ describe('Checkit - sync', function() {
   });
 
   describe('custom validation rules', function() {
-    
+
     it('should run the rule function on the supplied value', function() {
       var value = 'value';
       var rulesTest = {
@@ -331,7 +375,7 @@ describe('Checkit - sync', function() {
       };
       return Checkit(rulesTest).run({valueTest: value})
     })
-    
+
     it('should fail when the validation rule throws an error', function(){
       var rulesTest = {
         failedRuleTest: {
@@ -344,7 +388,7 @@ describe('Checkit - sync', function() {
         equal(err.get('failedRuleTest').message, 'thrown from rule function');
       });
     })
-    
+
     it('should pass the supplied parameter to the validation rule', function(){
       var parameter = 'parameter';
       var rulesTest = {
@@ -357,7 +401,7 @@ describe('Checkit - sync', function() {
       };
       return Checkit(rulesTest).run({parameterTest: "value"})
     })
-    
+
     it('should pass the context property supplied to the run function to the rule function', function(){
       var runContext = 'the context';
       var rulesTest = {
@@ -369,7 +413,7 @@ describe('Checkit - sync', function() {
       }
       return Checkit(rulesTest).run({contextTest: "value"}, runContext)
     })
-    
+
   });
 
   describe('conditional items', function() {
@@ -411,7 +455,7 @@ describe('Checkit - sync', function() {
       var context = { foo: 'my context', bar: 'another field' };
       var res = null;
       Checkit({})
-      .maybe({}, function(item, context) { 
+      .maybe({}, function(item, context) {
         res = context;
       })
       .runSync({}, context);
